@@ -8,12 +8,18 @@ import { ListPage } from '../pages/list/list';
 import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Tab1Component } from '../components/tab1/tab1';
+import { Tab2Component } from '../components/tab2/tab2';
+import { Tab3Component } from '../components/tab3/tab3';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    Tab1Component,
+    Tab2Component,
+    Tab3Component
   ],
   imports: [
     BrowserModule,
@@ -23,7 +29,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    Tab1Component,
+    Tab2Component,
+    Tab3Component
   ],
   providers: [
     StatusBar,
