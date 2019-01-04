@@ -22,7 +22,7 @@ export class HomePage {
   tab3: any;
   useStaticMap = true;
   infoWindows = [];
-  icaStores: Store[] = [{ storeName: "ICA Nära Blå Center", latitude: 63.170277, longitude: 14.665546 }, { storeName: "ICA Supermarket Traktören", latitude: 63.179331, longitude: 14.640339 }, { storeName: "ICA Kvantum Lillänge", latitude: 63.170730, longitude: 14.691163 }, { storeName: "ICA Supermarket Matmästaren", latitude: 63.179777, longitude: 14.651969 }, { storeName: "ICA Maxi Stormarknad", latitude: 63.193120, longitude: 14.653036 }]
+  icaStores: Store[] = [{ storeName: "ICA Nära Blå Center", latitude: 63.170277, longitude: 14.665546 }, { storeName: "ICA Supermarket Traktören", latitude: 63.179331, longitude: 14.640339 }, { storeName: "ICA Kvantum Lillänge", latitude: 63.170730, longitude: 14.691163 }, { storeName: "ICA Supermarket Matmästaren", latitude: 63.179777, longitude: 14.651969 }, { storeName: "ICA Maxi Stormarknad", latitude: 63.193120, longitude: 14.653036 }, {storeName: "ICA Supermarket Odenhallen", latitude: 63.155881, longitude: 14.683254}]
 
   constructor(public navCtrl: NavController, public geolocation: Geolocation) {
     this.tab1 = Tab1Component;
