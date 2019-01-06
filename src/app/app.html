@@ -1,4 +1,4 @@
-<ion-menu [content]="content">
+<!-- <ion-menu [content]="content" id="homeMenu">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menu</ion-title>
@@ -13,7 +13,37 @@
     </ion-list>
   </ion-content>
 
+</ion-menu> -->
+
+<ion-menu [content]="content" id="menu1">
+  <ion-header>
+
+    <ion-navbar>
+      <ion-title menuClose>Social flöde</ion-title>
+    </ion-navbar>
+
+  </ion-header>
+
+
+  <ion-content padding>
+
+  </ion-content>
 </ion-menu>
+
+<ion-menu [content]="content" id="menu2" side="right" width="100%">
+  <ion-header>
+
+    <ion-navbar>
+      <ion-title menuClose>Erbjudanden</ion-title>
+    </ion-navbar>
+
+  </ion-header>
+  <ion-content padding>
+
+  </ion-content>
+</ion-menu>
+<!-- <page-adds></page-adds>
+<page-flows></page-flows> -->
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
