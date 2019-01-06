@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { AppService } from '../../providers/approvider/approvider';
+import { Store } from '../../shared/interfaces';
 
-declare var google;
-
-interface Store { storeName: string, latitude: number, longitude: number };
+import { } from "googlemaps";
 
 @Component({
   selector: 'home-page',
@@ -12,16 +12,12 @@ interface Store { storeName: string, latitude: number, longitude: number };
 export class HomePage {
 
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
-  tab1: any;
-  tab2: any;
-  tab3: any;
+  map: google.maps.Map;
   useStaticMap = true;
-  infoWindows = [];
-  markers = [];
-  icaStores: Store[] = [{ storeName: "ICA Nära Blå Center", latitude: 63.170277, longitude: 14.665546 }, { storeName: "ICA Supermarket Traktören", latitude: 63.179331, longitude: 14.640339 }, { storeName: "ICA Kvantum Lillänge", latitude: 63.170730, longitude: 14.691163 }, { storeName: "ICA Supermarket Matmästaren", latitude: 63.179777, longitude: 14.651969 }, { storeName: "ICA Maxi Stormarknad", latitude: 63.193120, longitude: 14.653036 }, { storeName: "ICA Supermarket Odenhallen", latitude: 63.155881, longitude: 14.683254 }]
+  infoWindows: google.maps.InfoWindow[] = [];
+  markers: google.maps.Marker[] = [];
 
-  constructor(public geolocation: Geolocation) {
+  constructor(public geolocation: Geolocation, private service: AppService) {
   }
 
   ionViewDidLoad() {
@@ -29,7 +25,7 @@ export class HomePage {
   }
 
   private addStores() {
-    this.icaStores.forEach(store => {
+    this.service.getStores().forEach(store => {
       this.addMarker(store)
     })
   }
@@ -40,17 +36,18 @@ export class HomePage {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: postition,
+      position: postition
     });
 
     this.addInfoWindow(marker, content);
     this.markers.push(marker);
   }
 
-  private addInfoWindow(marker, content) {
+  private addInfoWindow(marker: google.maps.Marker, content) {
 
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
+    let infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow({
+      content: content,
+      position: marker.getPosition()
     });
 
     google.maps.event.addListener(marker, 'click', () => {
@@ -58,16 +55,19 @@ export class HomePage {
       infoWindow.open(this.map, marker);
       this.map.setZoom(14);
       this.map.setCenter(marker.getPosition());
+      this.service.setChoosenStore(infoWindow);
+      console.log("getVisableStores", this.service.getVisableStores());
     });
 
     google.maps.event.addListener(infoWindow, 'closeclick', () => {
       this.map.setOptions(this.getMapOptions());
+      this.service.removeChoosenStore();
     });
 
     this.infoWindows.push(infoWindow);
   }
 
-  private getMapOptions(position?: Geoposition) {
+  private getMapOptions(position?: Geoposition): google.maps.MapOptions {
     const ostersundCenter = { latitude: 63.178269, longitude: 14.655431 }
     let startCoordinates = null;
 
@@ -80,20 +80,21 @@ export class HomePage {
     const mapOptions = {
       center: startCoordinates,
       zoom: 12,
-      mapTypeId: google.maps.MapTypeId.HYBRID
+      mapTypeId: google.maps.MapTypeId.HYBRID,
+      disableDefaultUI: true
     }
 
     return mapOptions;
   }
-
-  activateMenu(s: string){}
 
   private loadMap() {
 
     this.geolocation.getCurrentPosition().then((position) => {
       this.map = new google.maps.Map(this.mapElement.nativeElement, this.getMapOptions(position));
       this.addStores();
-      this.map.addListener('bounds_changed', () => console.log("bounds_changed", this.markers.filter(m => this.checkMarkerVisibility(m)))
+      this.map.addListener('bounds_changed', () => {
+        this.service.setVisableInfos(this.infoWindows.filter(i => this.checkInfoVisibility(i)));
+      }
       );
     }, (err) => {
       console.log(err);
@@ -101,11 +102,10 @@ export class HomePage {
 
   }
 
-  private checkMarkerVisibility(marker: any): boolean {
-    if (this.map != null) {
+  private checkInfoVisibility(info: google.maps.InfoWindow): boolean {
+    if (this.map != null && info !== null) {
       const latLongBounds = this.map.getBounds();
-
-      if (latLongBounds.contains(marker.getPosition()))
+      if (latLongBounds.contains(info.getPosition()))
         return true;
       else
         return false;

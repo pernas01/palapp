@@ -19,7 +19,7 @@
   <ion-header>
 
     <ion-navbar>
-      <ion-title menuClose>Social flöde</ion-title>
+      <ion-title menuClose>Socialt flöde</ion-title>
     </ion-navbar>
 
   </ion-header>
@@ -39,11 +39,15 @@
 
   </ion-header>
   <ion-content padding>
-
+    <!-- TODO fix list with [virtualScroll] -->
+    <ion-list>
+        <ion-item style="height: 300px; width: 100%;" *ngFor="let item of service.getAdverts()">
+          {{item.imageUrl}}
+          <!-- TODO replace with img <ion-img src="data:image/*;base64,{{item.imageUrl}}" style="height: 300px; width: 100%;"></ion-img> -->
+        </ion-item>
+    </ion-list>
   </ion-content>
 </ion-menu>
-<!-- <page-adds></page-adds>
-<page-flows></page-flows> -->
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
