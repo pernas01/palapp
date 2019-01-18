@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
-import { AppService } from '../../providers/approvider/approvider';
+import { AppService } from '../../providers/approvider/appservice';
 import { Store } from '../../shared/interfaces';
 
 import { } from "googlemaps";

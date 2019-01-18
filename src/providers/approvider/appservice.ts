@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store, AdvertImg } from '../../shared/interfaces';
 import { } from "googlemaps";
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AppService {
@@ -9,6 +11,7 @@ export class AppService {
   private visableWindows: google.maps.InfoWindow[] = []
   private adverts: AdvertImg[] = [{storeId: "2", imageUrl: "img1"}, {storeId: "2", imageUrl: "img2"}, {storeId: "3", imageUrl: "img3"}, {storeId: "5", imageUrl: "img4"}, {storeId: "6", imageUrl: "img5"}]
   private choosenStore: Store;
+  private chooseStore: Subject<Store> = new Subject();
   constructor() { }
 
   getStores(): Store[] {
@@ -28,10 +31,19 @@ export class AppService {
   }
 
   setChoosenStore(infoWindow: google.maps.InfoWindow) {    
-    const icaStore = this.icaStores.find(store => infoWindow.getContent().toString().includes(store.storeName));
+    const icaStore: Store = this.icaStores.find(store => infoWindow.getContent().toString().includes(store.storeName));
     if(icaStore !== undefined) {
       this.choosenStore = icaStore;
+      this.chooseStore.next(icaStore);
     } 
+  }
+
+  getWhenStoreIsChoosen(): Observable<Store> {
+    return this.chooseStore.asObservable();
+  }
+
+  getChoosenStore(): Store | undefined {
+     return this.choosenStore;
   }
 
   removeChoosenStore() {

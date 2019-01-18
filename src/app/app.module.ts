@@ -9,7 +9,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
-import { AppService } from '../providers/approvider/approvider';
+import { AppService } from '../providers/approvider/appservice';
 
 @NgModule({
   declarations: [
