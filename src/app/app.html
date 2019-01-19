@@ -38,10 +38,12 @@
     <!-- TODO fix list with [virtualScroll] -->
     <ion-list>
       <div *ngFor="let store of getStoresToGroup(); let c = count">
-        <ion-list-header *ngIf="c > 1" [attr.detail-push]="store.showAdverts !== true ? 'true': null" class="item-group" (click)="toggleGroup(store)"
+        <ion-list-header *ngIf="c > 1" class="item-group" (click)="toggleGroup(store)"
           [ngClass]="{'active': store.showAdverts === true}">
-            &nbsp;
-            {{store.storeName}}
+          <ion-icon *ngIf="store.showAdverts !== true" name="arrow-dropdown" style="font-size: 22px"></ion-icon>
+          <ion-icon *ngIf="store.showAdverts === true" name="arrow-dropup" style="font-size: 22px"></ion-icon>
+          &nbsp;
+            {{store.storeName}}            
         </ion-list-header>
         <div [@fadeInOut]>
           <ion-item  class="item-accordion" [hidden]="c > 1 && store.showAdverts === false" *ngFor="let advert of store.adverts">
