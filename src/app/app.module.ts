@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -19,6 +20,7 @@ import { AppService } from '../providers/approvider/appservice';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ComponentsModule,
     IonicModule.forRoot(MyApp),
   ],

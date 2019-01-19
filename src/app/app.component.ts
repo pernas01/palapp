@@ -1,4 +1,5 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
+import { trigger, transition, style, animate, state, query, stagger } from '@angular/animations';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -6,32 +7,49 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AppService } from '../providers/approvider/appservice';
-import { AdvertImg } from '../shared/interfaces';
-
+import { Store } from '../shared/interfaces';
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: '0' })),
+      state('*', style({ opacity: '1' })),
+      transition('void <=> *', animate('150ms ease-in'))
+    ])
+  ]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
   rootPage: any = HomePage;
-  adverts: AdvertImg[] = [{ storeId: "2", imageUrl: "img1" }, { storeId: "2", imageUrl: "img2" }, { storeId: "3", imageUrl: "img3" }, { storeId: "5", imageUrl: "img4" }, { storeId: "6", imageUrl: "img5" }]
   pages: Array<{ title: string, component: any }>;
-  storeName: string = "";
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public service: AppService)  {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public service: AppService) {
     this.initializeApp();
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage }
     ];
+  }
 
-    this.adverts = service.getAdverts()
-  } 
+  getStoresToGroup(): Store[] {
+    return this.service.getVisableStores().filter(s => s.adverts.length > 0).sort((a,b) => a.storeName < b.storeName ? -1 : 1);
+  }
 
-  public getLabel(): string {
+  menuClosed() {    
+    this.service.resetShowStoreAdverts();
+  }
+
+  menuOpened() {
+    this.service.resetShowStoreAdverts();
+  }
+
+  toggleGroup(store: any) {
+    this.service.toggleShowAdverts(store);
+  }
+
+  getLabel(): string {
     return this.service.getChoosenStore() !== undefined ? this.service.getChoosenStore().storeName : "Erbjudanden";
   }
 

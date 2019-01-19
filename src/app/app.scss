@@ -19,3 +19,21 @@
     white-space: unset;
     font-size:16px;
 }
+
+.item-group.active {
+    background-color: map-get($colors,primary);
+}
+
+.item-group {
+    height: 70px;
+    width: 100%;
+    background-color: map-get($colors,light);
+}
+
+.list .item.item-accordion {
+    height: 300px;
+    width: 100%;
+    line-height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+}

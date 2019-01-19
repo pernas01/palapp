@@ -26,7 +26,7 @@
   </ion-content>
 </ion-menu>
 
-<ion-menu [content]="content" id="menu2" side="right" width="100%">
+<ion-menu [content]="content" id="menu2" side="right" width="100%" (ionOpen)="menuOpened()" (ionClose)="menuClosed()">
   <ion-header>
 
     <ion-navbar color="primary">
@@ -34,13 +34,22 @@
     </ion-navbar>
 
   </ion-header>
-  <ion-content padding>
+  <ion-content>
     <!-- TODO fix list with [virtualScroll] -->
     <ion-list>
-        <ion-item style="height: 300px; width: 100%;" *ngFor="let item of service.getAdverts()">
-          {{item.imageUrl}}
-          <!-- TODO replace with img <ion-img src="data:image/*;base64,{{item.imageUrl}}" style="height: 300px; width: 100%;"></ion-img> -->
-        </ion-item>
+      <div *ngFor="let store of getStoresToGroup(); let c = count">
+        <ion-list-header *ngIf="c > 1" [attr.detail-push]="store.showAdverts !== true ? 'true': null" class="item-group" (click)="toggleGroup(store)"
+          [ngClass]="{'active': store.showAdverts === true}">
+            &nbsp;
+            {{store.storeName}}
+        </ion-list-header>
+        <div [@fadeInOut]>
+          <ion-item  class="item-accordion" [hidden]="c > 1 && store.showAdverts === false" *ngFor="let advert of store.adverts">
+            {{advert.imageUrl}}
+            <!-- TODO replace with img <ion-img src="data:image/*;base64,{{item.imageUrl}}" style="height: 300px; width: 100%;"></ion-img> -->
+          </ion-item>
+        </div>        
+      </div>
     </ion-list>
   </ion-content>
 </ion-menu>

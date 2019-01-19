@@ -32,11 +32,11 @@ export class HomePage {
 
   private addMarker(store: Store) {
     const content: string = "<h4>" + store.storeName + "</h4>"
-    const postition = new google.maps.LatLng(store.latitude, store.longitude);
+    const position = new google.maps.LatLng(store.latitude, store.longitude);
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: postition
+      position: position
     });
 
     this.addInfoWindow(marker, content);
@@ -56,7 +56,6 @@ export class HomePage {
       this.map.setZoom(14);
       this.map.setCenter(marker.getPosition());
       this.service.setChoosenStore(infoWindow);
-      console.log("getVisableStores", this.service.getVisableStores());
     });
 
     google.maps.event.addListener(infoWindow, 'closeclick', () => {

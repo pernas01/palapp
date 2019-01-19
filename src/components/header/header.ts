@@ -11,7 +11,7 @@ export class HeaderComponent {
 
   activeMenu: string;
   constructor(public menu: MenuController, public service: AppService, private alert: AlertController) {
-this.service.getChoosenStore
+    this.service.getChoosenStore
     this.service.getWhenStoreIsChoosen().subscribe(store => {
       if (this.getNumberOfAdverts() > 0)
         setTimeout(() => this.activateMenu("menu2"), 1000);
@@ -36,7 +36,9 @@ this.service.getChoosenStore
   }
 
   getNumberOfAdverts(): number {
-    return this.service.getAdverts().length;
+    let count = 0;
+    this.service.getVisableStores().forEach(s => count = count + s.adverts.length);
+    return count;
   }
 
 }
