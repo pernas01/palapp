@@ -45,8 +45,8 @@ export class MyApp {
     this.service.resetShowStoreAdverts();
   }
 
-  toggleGroup(store: any) {
-    this.service.toggleShowAdverts(store);
+  toggleGroup(store: Store) {
+    store.showAdverts = !store.showAdverts;
   }
 
   getLabel(): string {

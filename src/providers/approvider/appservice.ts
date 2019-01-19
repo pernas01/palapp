@@ -26,10 +26,6 @@ export class AppService {
     this.stores.forEach(s => s.showAdverts = false);
   }
 
-  toggleShowAdverts(store: Store) {
-    this.stores.find(s => s === store).showAdverts = !store.showAdverts;
-  }
-
   getVisableInfos(): google.maps.InfoWindow[] {
     return this.visableWindows;
   }
