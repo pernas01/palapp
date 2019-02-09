@@ -36,7 +36,8 @@ export class HomePage {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: position
+      position: position,
+      icon: "assets/icon/ica_logo.ico"
     });
 
     this.addInfoWindow(marker, content);
@@ -76,18 +77,18 @@ export class HomePage {
       startCoordinates = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     }
 
-    const mapOptions = {
+    const mapOptions: google.maps.MapOptions = {
       center: startCoordinates,
       zoom: 12,
       mapTypeId: google.maps.MapTypeId.HYBRID,
-      disableDefaultUI: true
+      disableDefaultUI: true,
     }
 
     return mapOptions;
   }
 
   private loadMap() {
-
+    
     this.geolocation.getCurrentPosition().then((position) => {
       this.map = new google.maps.Map(this.mapElement.nativeElement, this.getMapOptions(position));
       this.addStores();
