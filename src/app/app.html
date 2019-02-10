@@ -46,10 +46,12 @@
             {{store.storeName}}            
         </ion-list-header>
         <div [@fadeInOut]>
-          <ion-item  class="item-accordion" [hidden]="c > 1 && store.showAdverts === false" *ngFor="let advert of store.adverts">
-            {{advert.imageUrl}}
-            <!-- TODO replace with img <ion-img src="data:image/*;base64,{{item.imageUrl}}" style="height: 300px; width: 100%;"></ion-img> -->
+          <ion-item-divider>
+          <ion-item class="item-accordion" [hidden]="c > 1 && store.showAdverts === false" *ngFor="let advert of store.adverts">
+            <!-- {{advert.imageUrl}} -->
+            <img [src]="advert.imageUrl" alt=""/>
           </ion-item>
+        </ion-item-divider>
         </div>        
       </div>
     </ion-list>
