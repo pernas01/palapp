@@ -1,6 +1,6 @@
 import { Component, ViewChild} from '@angular/core';
 import { trigger, transition, style, animate, state, query, stagger } from '@angular/animations';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AppService } from '../providers/approvider/appservice';
 import { Store } from '../shared/interfaces';
+import { ImageModalPage } from '../pages/image-modal/image-modal';
 
 @Component({
   templateUrl: 'app.html',
@@ -24,13 +25,18 @@ export class MyApp {
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public service: AppService) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public service: AppService, private modalCtrl: ModalController) {
     this.initializeApp();
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage }
     ];
+  }
+
+  openModal(imgUrl: string){
+    const modal = this.modalCtrl.create(ImageModalPage, {imgUrl});
+     modal.present();
   }
 
   getStoresToGroup(): Store[] {

@@ -7,11 +7,13 @@ import { IonicModule } from 'ionic-angular';
 
 @NgModule({
     declarations: [HeaderComponent,
-        FooterComponent],
+        FooterComponent,
+    ],
     imports: [BrowserModule, IonicModule.forRoot(HeaderComponent), IonicModule.forRoot(FooterComponent)],
     providers: [
         Geolocation],
     exports: [BrowserModule, HeaderComponent,
-        FooterComponent]
+        FooterComponent,
+    ]
 })
 export class ComponentsModule { }

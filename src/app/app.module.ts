@@ -11,12 +11,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
 import { AppService } from '../providers/approvider/appservice';
+import { ImageModalPage } from '../pages/image-modal/image-modal';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    ImageModalPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { AppService } from '../providers/approvider/appservice';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    ImageModalPage
   ],
   providers: [
     StatusBar,
