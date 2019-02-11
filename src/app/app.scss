@@ -18,6 +18,11 @@
     text-overflow: unset;
     white-space: unset;
     font-size:16px;
+    text-align: center;
+}
+
+.toolbar-ios ion-title {
+    padding: 0px
 }
 
 .item-group.active {
@@ -37,3 +42,9 @@
     padding-top: 0;
     padding-bottom: 0;
 }
+.toolbar-title {
+    .subtitle {
+      font-size: 60%;
+      margin: 0;
+    }
+  }

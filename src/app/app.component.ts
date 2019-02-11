@@ -1,6 +1,6 @@
-import { Component, ViewChild} from '@angular/core';
+import { Component, ViewChild, ElementRef} from '@angular/core';
 import { trigger, transition, style, animate, state, query, stagger } from '@angular/animations';
-import { Nav, Platform, ModalController } from 'ionic-angular';
+import { Nav, Platform, ModalController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -22,16 +22,24 @@ import { ImageModalPage } from '../pages/image-modal/image-modal';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
+  @ViewChild('subLabel') subLabelElement: ElementRef;
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public service: AppService, private modalCtrl: ModalController) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public service: AppService, private modalCtrl: ModalController, private alertController: AlertController) {
     this.initializeApp();
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage }
     ];
+
+    const alert = this.alertController.create({
+      title: 'OBS',
+      subTitle: 'Denna app har mycket begränsat med funktioner och ska endast ses som en prototyp.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   openModal(imgUrl: string){
@@ -57,6 +65,11 @@ export class MyApp {
 
   getLabel(): string {
     return this.service.getChoosenStore() !== undefined ? this.service.getChoosenStore().storeName : "Erbjudanden";
+  }
+
+  getSubLabel(): string {
+    const store = this.service.getChoosenStore();
+    return store !== undefined ? store.address + " " + store.phone : "";
   }
 
   initializeApp() {

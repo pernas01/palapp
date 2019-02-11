@@ -14,7 +14,8 @@ export class HeaderComponent {
     this.service.getChoosenStore
     this.service.getWhenStoreIsChoosen().subscribe(store => {
       if (this.getNumberOfAdverts() > 0)
-        setTimeout(() => this.activateMenu("menu2"), 1000);
+        // setTimeout(() => this.activateMenu("menu2"), 1000);
+        this.activateMenu("menu2")
     });
 
   }

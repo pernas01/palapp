@@ -27,12 +27,12 @@
 </ion-menu>
 
 <ion-menu [content]="content" id="menu2" side="right" width="100%" (ionOpen)="menuOpened()" (ionClose)="menuClosed()">
-  <ion-header>
-
+  <ion-header >
     <ion-navbar color="primary">
-      <ion-title class="customTitle" menuClose>{{getLabel()}}</ion-title>
+      <ion-title class="customTitle" menuClose>{{getLabel()}}
+           <div *ngIf="getLabel() !== 'Erbjudanden'" class="subtitle">{{getSubLabel()}}</div>
+      </ion-title>
     </ion-navbar>
-
   </ion-header>
   <ion-content>
     <!-- TODO fix list with [virtualScroll] -->
