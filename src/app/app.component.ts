@@ -1,5 +1,4 @@
-import { Component, ViewChild, ElementRef} from '@angular/core';
-import { trigger, transition, style, animate, state, query, stagger } from '@angular/animations';
+import { Component, ViewChild} from '@angular/core';
 import { Nav, Platform, ModalController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -12,17 +11,9 @@ import { ImageModalPage } from '../pages/image-modal/image-modal';
 
 @Component({
   templateUrl: 'app.html',
-  animations: [
-    trigger('fadeInOut', [
-      state('void', style({ opacity: '0' })),
-      state('*', style({ opacity: '1' })),
-      transition('void <=> *', animate('150ms ease-in'))
-    ])
-  ]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  @ViewChild('subLabel') subLabelElement: ElementRef;
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any }>;
 

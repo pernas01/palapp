@@ -45,7 +45,7 @@
           &nbsp;
             {{store.storeName}}            
         </ion-list-header>
-        <div [@fadeInOut]>
+        <div>
           <ion-item (click)="openModal(advert.imageUrl)" class="item-accordion" [hidden]="c > 1 && store.showAdverts === false" *ngFor="let advert of store.adverts">
             <!-- {{advert.imageUrl}} -->
             <ion-item-divider>
