@@ -89,7 +89,7 @@ export class HomePage {
 
   private loadMap() {
     
-    this.geolocation.getCurrentPosition().then((position) => {
+    this.geolocation.getCurrentPosition().then((position: Geoposition) => {
       this.map = new google.maps.Map(this.mapElement.nativeElement, this.getMapOptions(position));
       this.addStores();
       this.map.addListener('bounds_changed', () => {
