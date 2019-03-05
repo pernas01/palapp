@@ -12,6 +12,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComponentsModule } from '../components/components.module';
 import { AppService } from '../providers/approvider/appservice';
 import { ImageModalPage } from '../pages/image-modal/image-modal';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ImageModalPage } from '../pages/image-modal/image-modal';
     BrowserAnimationsModule,
     ComponentsModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
