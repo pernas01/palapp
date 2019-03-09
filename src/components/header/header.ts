@@ -2,17 +2,18 @@ import { Component } from '@angular/core';
 import { MenuController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { AppService } from '../../providers/approvider/appservice';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'header',
   templateUrl: 'header.html'
 })
 export class HeaderComponent {
-
+  sub: Subscription;
   activeMenu: string;
   constructor(public menu: MenuController, public service: AppService, private alert: AlertController) {
     this.service.getChoosenStore
-    this.service.getWhenStoreIsChoosen().subscribe(store => {
+    this.sub = this.service.getWhenStoreIsChoosen().subscribe(store => {
       if (this.getNumberOfAdverts() > 0)
         // setTimeout(() => this.activateMenu("menu2"), 1000);
         this.activateMenu("menu2")
@@ -20,10 +21,14 @@ export class HeaderComponent {
 
   }
 
+  ionViewDidLeave(): void {
+    this.sub.unsubscribe();
+  }
+
   showAlert() {
     const alert = this.alert.create({
-      title: 'Under utveckling!',
-      subTitle: 'Denna tab är tänkt att innehålla ett socialt flöde.',
+      title: 'Centrala erbjudanden',
+      subTitle: 'Här kommer det vara centrala  erbjudanden från alla kedjor & företag som du är intresserad av att se, och som är på din radie.',
       buttons: ['OK']
     });
     alert.present();

@@ -4,6 +4,7 @@ import { AppService } from '../../providers/approvider/appservice';
 import { Store } from '../../shared/interfaces';
 
 import { } from "googlemaps";
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'home-page',
@@ -16,12 +17,18 @@ export class HomePage {
   useStaticMap = true;
   infoWindows: google.maps.InfoWindow[] = [];
   markers: google.maps.Marker[] = [];
-
+  currentPositionMarker: google.maps.Marker;
+  sub: Subscription;
+  
   constructor(public geolocation: Geolocation, private service: AppService) {
   }
 
   ionViewDidLoad() {
     this.loadMap();
+  }
+
+  ionViewDidLeave(): void {
+    this.sub.unsubscribe();
   }
 
   private addStores() {
@@ -40,11 +47,11 @@ export class HomePage {
       icon: "assets/icon/ica_logo.ico"
     });
 
-    this.addInfoWindow(marker, content);
+    this.addInfoWindowStore(marker, content);
     this.markers.push(marker);
   }
 
-  private addInfoWindow(marker: google.maps.Marker, content) {
+  private addInfoWindowStore(marker: google.maps.Marker, content) {
 
     let infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow({
       content: content,
@@ -65,6 +72,29 @@ export class HomePage {
     });
 
     this.infoWindows.push(infoWindow);
+  }
+
+  private addInfoWindow(marker: google.maps.Marker, content) {
+
+    let infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow({
+      content: content,
+      position: marker.getPosition()
+    });
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+  }
+
+  private addCurrentPositionMarker(position: Geoposition) {
+    const content: string = "<strong><p>" + "Denna figur kommer visa vart du är på kartan i realtid, här kan du även byta vad du är intresserad av just idag." + "</p></strong>"
+    const pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    let marker = new google.maps.Marker({
+      map: this.map,
+      position: pos,
+    });
+    this.currentPositionMarker = marker;
+    this.addInfoWindow(marker, content);
   }
 
   private getMapOptions(position?: Geoposition): google.maps.MapOptions {
@@ -88,10 +118,14 @@ export class HomePage {
   }
 
   private loadMap() {
-    
+
     this.geolocation.getCurrentPosition().then((position: Geoposition) => {
-      this.map = new google.maps.Map(this.mapElement.nativeElement, this.getMapOptions(position));
+      const mapOptions = this.getMapOptions(position);
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       this.addStores();
+      if (position) {
+        this.addCurrentPositionMarker(position);
+      }
       this.map.addListener('bounds_changed', () => {
         this.service.setVisableInfos(this.infoWindows.filter(i => this.checkInfoVisibility(i)));
       }
@@ -99,6 +133,13 @@ export class HomePage {
     }, (err) => {
       console.log(err);
     });
+
+    this.sub = this.geolocation.watchPosition().subscribe(
+      pos => {
+      let newCoordinates = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+      this.currentPositionMarker.setPosition(newCoordinates);
+      }
+    );
 
   }
 

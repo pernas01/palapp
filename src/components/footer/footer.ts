@@ -15,9 +15,9 @@ export class FooterComponent {
   constructor(private alertController: AlertController) {
   }
 
-  onClick(message: string) {
+  onClick(title: string, message: string) {
     const alert = this.alertController.create({
-      title: 'Under utveckling!',
+      title: title,
       subTitle: message,
       buttons: ['OK']
     });

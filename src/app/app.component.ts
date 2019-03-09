@@ -78,7 +78,7 @@ export class MyApp {
   }
 
   getLabel(): string {
-    return this.service.getChoosenStore() !== undefined ? this.service.getChoosenStore().storeName : "Erbjudanden";
+    return this.service.getChoosenStore() !== undefined ? this.service.getChoosenStore().storeName : "Personliga Erbjudanden";
   }
 
   getSubLabel(): string {
