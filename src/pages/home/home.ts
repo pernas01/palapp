@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { AppService } from '../../providers/approvider/appservice';
 import { Store } from '../../shared/interfaces';
-
+import { Platform } from 'ionic-angular';
 import { } from "googlemaps";
 import { Subscription } from 'rxjs/Subscription';
 
@@ -19,12 +19,11 @@ export class HomePage {
   markers: google.maps.Marker[] = [];
   currentPositionMarker: google.maps.Marker;
   sub: Subscription;
-  
-  constructor(public geolocation: Geolocation, private service: AppService) {
-  }
 
-  ionViewDidLoad() {
-    this.loadMap();
+  constructor(private platForm: Platform, public geolocation: Geolocation, private service: AppService) {
+    platForm.ready().then(() => {
+      this.loadMap();
+    });
   }
 
   ionViewDidLeave(): void {
@@ -136,8 +135,8 @@ export class HomePage {
 
     this.sub = this.geolocation.watchPosition().subscribe(
       pos => {
-      let newCoordinates = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-      this.currentPositionMarker.setPosition(newCoordinates);
+        let newCoordinates = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        this.currentPositionMarker.setPosition(newCoordinates);
       }
     );
 
