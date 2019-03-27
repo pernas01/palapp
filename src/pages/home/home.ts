@@ -20,7 +20,7 @@ export class HomePage {
   currentPositionMarker: google.maps.Marker;
   sub: Subscription;
 
-  constructor(private platForm: Platform, public geolocation: Geolocation, private service: AppService) {
+  constructor(platForm: Platform, public geolocation: Geolocation, private service: AppService) {
     platForm.ready().then(() => {
       this.loadMap();
     });
