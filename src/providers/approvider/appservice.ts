@@ -19,13 +19,14 @@ export class AppService {
   private choosenStore: Store;
   private chooseStore: Subject<Store> = new Subject();
   private readonly startWeek = 11;
-  private readonly endOfTestTrial = moment("2019-04-30");
+  private readonly endOfTestTrial = moment("2019-06-01");
   constructor() { 
     this.updateAdvertOnStores();
   }
 
   public updateAdvertOnStores() {
     const week = moment().week()
+    // const week = moment("2019-04-25").week();
     this.stores.forEach((s: Store) => this.setAdvertOnStore(s, this.getIdFromWeek(week)));
   }
 
