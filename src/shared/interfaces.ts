@@ -1,2 +1,2 @@
-export interface Store { id: string, storeName: string, address: string, phone: string, latitude: number, longitude: number, adverts: AdvertImg[], showAdverts: boolean  };
+export interface Store { id: string, storeName: string, address: string, phone: string, latitude: number, longitude: number, adverts: AdvertImg[], publicAdvert?: AdvertImg, showAdverts: boolean  };
 export interface AdvertImg { id: string, imageUrl: string }

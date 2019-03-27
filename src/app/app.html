@@ -22,7 +22,11 @@
     </ion-navbar>
   </ion-header>
   <ion-content padding>
-
+    <ion-item (click)="openModal(publicAdvert.imageUrl)" class="item-accordion" *ngFor="let publicAdvert of service.getPublicAdverts()">
+      <ion-item-divider>
+      <img [src]="publicAdvert.imageUrl" alt=""/>
+    </ion-item-divider>
+    </ion-item>
   </ion-content>
 </ion-menu>
 
@@ -47,7 +51,6 @@
         </ion-list-header>
         <div>
           <ion-item (click)="openModal(advert.imageUrl)" class="item-accordion" [hidden]="c > 1 && store.showAdverts === false" *ngFor="let advert of store.adverts">
-            <!-- {{advert.imageUrl}} -->
             <ion-item-divider>
             <img [src]="advert.imageUrl" alt=""/>
           </ion-item-divider>

@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AppService } from '../providers/approvider/appservice';
-import { Store } from '../shared/interfaces';
+import { Store, AdvertImg } from '../shared/interfaces';
 import { ImageModalPage } from '../pages/image-modal/image-modal';
 import { Storage } from '@ionic/storage';
 import moment from 'moment';
