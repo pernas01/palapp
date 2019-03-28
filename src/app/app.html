@@ -55,6 +55,9 @@
             <img [src]="advert.imageUrl" alt=""/>
           </ion-item-divider>
           </ion-item>
+          <ion-item *ngIf="getLabel() !== 'Personliga Erbjudanden' && store.adverts.length > 0">
+            <img src="assets/imgs/placeholder.png" alt="">
+          </ion-item> 
         </div>        
       </div>
     </ion-list>
