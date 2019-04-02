@@ -5,6 +5,7 @@ import { Store } from '../../shared/interfaces';
 import { Platform } from 'ionic-angular';
 import { } from "googlemaps";
 import { Subscription } from 'rxjs/Subscription';
+import { StatusBar } from '@ionic-native/status-bar';
 
 @Component({
   selector: 'home-page',
@@ -20,7 +21,8 @@ export class HomePage {
   currentPositionMarker: google.maps.Marker;
   sub: Subscription;
 
-  constructor(platForm: Platform, public geolocation: Geolocation, private service: AppService) {
+  constructor(platForm: Platform, statusBar: StatusBar, public geolocation: Geolocation, private service: AppService) {
+    statusBar.hide;
     platForm.ready().then(() => {
       this.loadMap();
     });
