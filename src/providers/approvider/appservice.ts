@@ -8,12 +8,13 @@ import moment from "moment";
 @Injectable()
 export class AppService {
 
-  private stores: Store[] = [{ id: "2", storeName: "ICA Nära Blå Center", publicAdvert: {id: "1", imageUrl: "assets/imgs/adverts/public_nara.png"}, address: "Tegelbruksvägen 10, 831 47 Östersund", phone: "063-19 45 55", latitude: 63.170065, longitude: 14.663709, adverts: [{ id: "1", imageUrl: "assets/imgs/adverts/10percent.png" }, { id: "2", imageUrl: "assets/imgs/adverts/chips.png"}, {id: "5", imageUrl: "assets/imgs/adverts/coffee.png"}], showAdverts: false },
-  { id: "3", storeName: "ICA Supermarket Traktören", publicAdvert: {id: "4", imageUrl: "assets/imgs/adverts/public_supermarket.png"}, address: "Kyrkgatan 46, 831 31 Östersund", phone: "063-12 00 50", latitude: 63.179275, longitude: 14.638412, adverts: [{ id: "1", imageUrl: "assets/imgs/adverts/10percent.png" }, {id: "4", imageUrl: "assets/imgs/adverts/chocolate.png" }, {id: "6", imageUrl: "assets/imgs/adverts/digestive.png" }], showAdverts: false },
-  { id: "4", storeName: "ICA Kvantum Lillänge", publicAdvert: {id: "2", imageUrl: "assets/imgs/adverts/public_kvantum.png"}, address: "Hagvägen 13, 831 48 Östersund", phone: "063-685 66 00", latitude: 63.170730, longitude: 14.691163, adverts: [{id: "3", imageUrl: "assets/imgs/adverts/5percent.png" }, {id: "5",imageUrl: "assets/imgs/adverts/coffee.png"}, {id: "2", imageUrl: "assets/imgs/adverts/chips.png"}], showAdverts: false },
-  { id: "5", storeName: "ICA Supermarket Matmästaren", address: "Samuel Permans Gata 26, 831 42 Östersund", phone: "063-51 65 00", latitude: 63.179791, longitude: 14.650953, adverts: [{id: "1", imageUrl: "assets/imgs/adverts/10percent.png" }, {id: "6", imageUrl: "assets/imgs/adverts/digestive.png"}, { id: "4", imageUrl: "assets/imgs/adverts/chocolate.png"}], showAdverts: false },
-  { id: "1", storeName: "ICA Maxi Stormarknad", publicAdvert: {id: "3", imageUrl: "assets/imgs/adverts/public_maxi.png"}, address: "Arenavägen 19, 831 32 Östersund", phone: "063-57 76 00", latitude: 63.192805, longitude: 14.651058, adverts: [{id: "3", imageUrl: "assets/imgs/adverts/5percent.png"}, {id: "5",imageUrl: "assets/imgs/adverts/coffee.png"}, {id: "4", imageUrl: "assets/imgs/adverts/chocolate.png"}], showAdverts: false },
-  { id: "6", storeName: "ICA Supermarket Odenhallen", address: "Slåttervägen 31, 831 61 Östersund", phone: "063-19 95 30", latitude: 63.155881, longitude: 14.683254, adverts: [{id: "3", imageUrl: "assets/imgs/adverts/5percent.png"}, {id: "6", imageUrl: "assets/imgs/adverts/digestive.png"}, {id: "2", imageUrl: "assets/imgs/adverts/chips.png" }], showAdverts: false }];
+  private stores: Store[] = [{ id: "2", storeName: "ICA Nära Blå Center", publicAdvert: {id: "1", imageUrl: "assets/imgs/adverts/public_nara.png"}, address: "Tegelbruksvägen 10, 831 47 Östersund", phone: "063-19 45 55", latitude: 63.170065, longitude: 14.663709, adverts: [], showAdverts: false },
+  { id: "3", storeName: "ICA Supermarket Traktören", publicAdvert: {id: "4", imageUrl: "assets/imgs/adverts/public_supermarket.png"}, address: "Kyrkgatan 46, 831 31 Östersund", phone: "063-12 00 50", latitude: 63.179275, longitude: 14.638412, adverts: [], showAdverts: false },
+  { id: "4", storeName: "ICA Kvantum Lillänge", publicAdvert: {id: "2", imageUrl: "assets/imgs/adverts/public_kvantum.png"}, address: "Hagvägen 13, 831 48 Östersund", phone: "063-685 66 00", latitude: 63.170730, longitude: 14.691163, adverts: [], showAdverts: false },
+  { id: "5", storeName: "ICA Supermarket Matmästaren", address: "Samuel Permans Gata 26, 831 42 Östersund", phone: "063-51 65 00", latitude: 63.179791, longitude: 14.650953, adverts: [], showAdverts: false },
+  { id: "1", storeName: "ICA Maxi Stormarknad", publicAdvert: {id: "3", imageUrl: "assets/imgs/adverts/public_maxi.png"}, address: "Arenavägen 19, 831 32 Östersund", phone: "063-57 76 00", latitude: 63.192805, longitude: 14.651058, adverts: [], showAdverts: false },
+  { id: "6", storeName: "ICA Supermarket Odenhallen", address: "Slåttervägen 31, 831 61 Östersund", phone: "063-19 95 30", latitude: 63.155881, longitude: 14.683254, adverts: [], showAdverts: false },
+  { id: "7", storeName: "ICA Nära Lugnvik", address: "Semsåvägen 44, 831 52 Östersund", phone: "077-133 33 10", latitude: 63.209868, longitude: 14.633850, adverts: [], showAdverts: false }];
   private adverts: AdvertImg[] = [{ id: "1", imageUrl: "assets/imgs/adverts/chips.png"}, { id: "2", imageUrl: "assets/imgs/adverts/10percent.png" }, {id: "3", imageUrl: "assets/imgs/adverts/5percent.png"}, {id: "4", imageUrl: "assets/imgs/adverts/coffee.png"}, {id: "5", imageUrl: "assets/imgs/adverts/chocolate.png" }, {id: "6", imageUrl: "assets/imgs/adverts/digestive.png"}];
   private visableWindows: google.maps.InfoWindow[] = [];
   private choosenStore: Store;
@@ -25,8 +26,9 @@ export class AppService {
   }
 
   public updateAdvertOnStores() {
-    const week = moment().week()
-    // const week = moment("2019-04-25").week();
+    const week = moment().isoWeek()
+    // const week = moment("2019-04-15").week();
+    // console.log("vecka", moment("2019-04-15").isoWeek())
     this.stores.forEach((s: Store) => this.setAdvertOnStore(s, this.getIdFromWeek(week)));
   }
 
@@ -57,6 +59,8 @@ export class AppService {
       return currentAdvertId + 2 > 6 ? (currentAdvertId + 2)%6 : currentAdvertId + 2;
       case 6:
       return currentAdvertId + 1 > 6 ? (currentAdvertId + 1)%6 : currentAdvertId + 1;
+      case 7:
+      return currentAdvertId + 4 > 6 ? (currentAdvertId + 4)%6 : currentAdvertId + 4;
     }
   }
 

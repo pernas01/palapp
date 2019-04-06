@@ -53,7 +53,7 @@ export class MyApp {
 
   menuOpened() {
     this.service.resetShowStoreAdverts();
-    const yearWeek = moment().year().toString() + "_" + moment().week().toString();
+    const yearWeek = moment().year().toString() + "_" + moment().isoWeek().toString();
     this.storage.get(yearWeek).then(
       (value) => {
         if (value === null) {
