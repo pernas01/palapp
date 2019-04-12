@@ -22,7 +22,7 @@ export class HomePage {
 
   constructor(platForm: Platform, public geolocation: Geolocation, private service: AppService) {
     platForm.ready().then(() => {
-      this.loadMap();
+      this.loadMap();  
     });
   }
 
@@ -90,6 +90,7 @@ export class HomePage {
     const pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     let marker = new google.maps.Marker({
       map: this.map,
+      zIndex: 1,
       position: pos,
     });
     this.currentPositionMarker = marker;

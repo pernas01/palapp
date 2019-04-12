@@ -28,14 +28,15 @@ export class MyApp {
     ];
     this.overlayHidden = moment().isBefore(service.getEndOfTrial());
 
-    if (this.overlayHidden) {
-      const alert = this.alertController.create({
-        title: 'OBS',
-        subTitle: 'Denna app har mycket begränsat med funktioner och ska endast ses som en prototyp.',
-        buttons: ['OK']
-      });
-      alert.present();
-    }
+    // if (this.overlayHidden) {
+    //   const alert = this.alertController.create({
+    //     title: 'OBS',
+    //     subTitle: 'Denna app har mycket begränsat med funktioner och ska endast ses som en prototyp.',
+    //     buttons: ['OK']
+    //   });
+    //   alert.present();
+    // }
+    
   }
 
   openModal(imgUrl: string) {
