@@ -12,7 +12,7 @@ export class AppService {
   { id: "3", storeName: "ICA Supermarket Traktören", publicAdvert: {id: "4", imageUrl: "assets/imgs/adverts/public_supermarket.png"}, address: "Kyrkgatan 46, 831 31 Östersund", phone: "063-12 00 50", latitude: 63.179275, longitude: 14.638412, adverts: [], showAdverts: false },
   { id: "4", storeName: "ICA Kvantum Lillänge", publicAdvert: {id: "2", imageUrl: "assets/imgs/adverts/public_kvantum.png"}, address: "Hagvägen 13, 831 48 Östersund", phone: "063-685 66 00", latitude: 63.170730, longitude: 14.691163, adverts: [], showAdverts: false },
   { id: "5", storeName: "ICA Supermarket Matmästaren", address: "Samuel Permans Gata 26, 831 42 Östersund", phone: "063-51 65 00", latitude: 63.179791, longitude: 14.650953, adverts: [], showAdverts: false },
-  { id: "1", storeName: "ICA Maxi Stormarknad", publicAdvert: {id: "3", imageUrl: "assets/imgs/adverts/public_maxi.png"}, address: "Arenavägen 19, 831 32 Östersund", phone: "063-57 76 00", latitude: 63.192805, longitude: 14.651058, adverts: [], showAdverts: false },
+  // { id: "1", storeName: "ICA Maxi Stormarknad", publicAdvert: {id: "3", imageUrl: "assets/imgs/adverts/public_maxi.png"}, address: "Arenavägen 19, 831 32 Östersund", phone: "063-57 76 00", latitude: 63.192805, longitude: 14.651058, adverts: [], showAdverts: false },
   { id: "6", storeName: "ICA Supermarket Odenhallen", address: "Slåttervägen 31, 831 61 Östersund", phone: "063-19 95 30", latitude: 63.155881, longitude: 14.683254, adverts: [], showAdverts: false },
   { id: "7", storeName: "ICA Nära Lugnvik", address: "Semsåvägen 44, 831 52 Östersund", phone: "077-133 33 10", latitude: 63.209868, longitude: 14.633850, adverts: [], showAdverts: false }];
   private adverts: AdvertImg[] = [{ id: "1", imageUrl: "assets/imgs/adverts/chips.png"}, { id: "2", imageUrl: "assets/imgs/adverts/10percent.png" }, {id: "3", imageUrl: "assets/imgs/adverts/5percent.png"}, {id: "4", imageUrl: "assets/imgs/adverts/coffee.png"}, {id: "5", imageUrl: "assets/imgs/adverts/chocolate.png" }, {id: "6", imageUrl: "assets/imgs/adverts/digestive.png"}];
@@ -20,14 +20,14 @@ export class AppService {
   private choosenStore: Store;
   private chooseStore: Subject<Store> = new Subject();
   private readonly startWeek = 11;
-  private readonly endOfTestTrial = moment("2019-06-01");
+  private readonly endOfTestTrial = moment("2019-05-27");
   constructor() { 
     this.updateAdvertOnStores();
   }
 
   public updateAdvertOnStores() {
     const week = moment().isoWeek()
-    // const week = moment("2019-04-15").week();
+    // const week = moment("2019-05-27").isoWeek();
     // console.log("vecka", moment("2019-04-15").isoWeek())
     this.stores.forEach((s: Store) => this.setAdvertOnStore(s, this.getIdFromWeek(week)));
   }
